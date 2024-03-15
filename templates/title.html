@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+<div class="container text-start">
+    <div class="row">
+      <div class="col-3">
+        <img src="{{ poster }}" class="card-img-top" alt="...">
+        <form action="/watchlist" method="post">
+          <input type="hidden" name="title_id" value="{{ movie_data["imdbID"] }}">
+          <button type="submit" class="btn btn-primary my-1">Add to watchlist</button>
+        </form>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          I have seen this
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please add your review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="/mymovies" method="post">
+                  <label for="my_rating" class="form-label">Rating</label>
+                  <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" name="my_rating" id="my_rating">
+                      <option selected disabled>Rate the movie</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="my_review" class="form-label">Your thoughts</label>
+                    <input type="text" class="form-control" id="my_review" name="my_review" placeholder="Type your thoughts about the movie here...">
+                  </div>
+                  <div class="modal-footer">
+                    <input type="hidden" name="title_id" value="{{ movie_data["imdbID"] }}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-9">
+        <h2>{{ movie_data["Title"] }}</h2>
+        <p>{{ movie_data["Plot"] }}</p>
+        <hr>
+        {% if movie_data["Ratings"] %}
+          <h3>Ratings</h3>
+            <ul>
+              {% for rating in movie_data["Ratings"] %}
+                <li>{{ rating["Source"] }}: {{ rating["Value"] }}</li>
+              {% endfor %}
+            </ul>
+          <hr>
+          <h3>Genres</h3>
+        {% else %}
+          <p>No ratings</p>
+        {% endif %}
+        <p>{{ movie_data["Genre"] }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+<h2 class="my-5">My Movies</h2>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Movie</th>
+        <th scope="col">My Rating</th>
+        <th scope="col">My Review</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for row in mymovies %}
+            <tr>
+                <td>{{ row["movie_name"] }}</td>
+                <td>{{ row["my_rating"] }}</td>
+                <td>{{ row["my_review"] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
+
+

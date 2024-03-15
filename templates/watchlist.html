@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+
+    <h2 class="my-5">Watchlist</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Movie</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Runtime</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for row in movie_data %}
+                <tr>
+                    <td>{{ row["Title"] }}</td>
+                    <td>{{ row["Genre"] }}</td>
+                    <td>{{ row["Runtime"] }}</td>
+                    <form action="/title" method="post">
+                        <input type="hidden" name="title_id" value="{{ row['imdbID'] }}">
+                        <td><button type="submit" class="btn btn-primary" name="title_id" id="title">More info</button></td>
+                    </form>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+

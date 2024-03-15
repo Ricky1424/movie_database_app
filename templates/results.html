@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center">
+    {% for row in movie_data["Search"] %}
+    <div class="card mx-3 my-3" style="width: 18rem;">
+        <img src="{{ row["Poster"] }}" class="card-img-top" alt="..." style="height: 200px object-fit: cover;">
+        <div class="card-body">
+            <h5 class="card-title"><strong>{{ row["Title"] }}</strong></h5>
+            <p class="card-text">{{ row["Year"] }}</p>
+        </div>
+        <div>
+            <form action="/title" method="post">
+                <input type="hidden" name="title_id" value="{{ row['imdbID'] }}">
+                <button type="submit" class="btn btn-primary my-2 px-5" name="title" id="title">More info</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
